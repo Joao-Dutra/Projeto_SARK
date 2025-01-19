@@ -1,8 +1,7 @@
-package com.sark.repository;
+package com.sark.api.repository;
 
-import com.sark.model.Produto;
+import com.sark.api.model.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
-    // Métodos customizados (se necessário)
 }
