@@ -1,6 +1,7 @@
 import React from 'react';
-import { ShoppingCart, Shirt } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { CartItem } from '../types';
+import Logo from './Sark-logo.png';
 
 interface HeaderProps {
   onCartClick: () => void;
@@ -11,13 +12,13 @@ export default function Header({ onCartClick, cartItems }: HeaderProps) {
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white z-40 shadow-sm">
+    <header className="fixed top-[20px] left-0 right-0 bg-white z-40 shadow-md">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Shirt className="w-6 h-6 md:w-8 md:h-8" />
-          <span className="text-xl md:text-2xl font-bold">SARK</span>
+          {/* Exibe a logo */}
+          <img src={Logo} alt="Sark Logo" className="w-16 h-16 md:w-20 md:h-20" />
         </div>
-        
+
         <button
           onClick={onCartClick}
           className="relative p-2 hover:bg-gray-100 rounded-full transition-colors"

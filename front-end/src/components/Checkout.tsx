@@ -10,10 +10,22 @@ interface CheckoutProps {
 
 export default function Checkout({ isOpen, onClose, items }: CheckoutProps) {
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = 15.90;
+  const shipping = 15.9;
   const finalTotal = total + shipping;
 
   if (!isOpen) return null;
+
+  // Função para permitir apenas números
+  const handleNumberInput = (event: React.FormEvent<HTMLInputElement>) => {
+    const input = event.currentTarget;
+    input.value = input.value.replace(/\D/g, ''); // Remove qualquer caractere que não seja número
+  };
+
+  // Função para permitir apenas letras e espaços
+  const handleTextInput = (event: React.FormEvent<HTMLInputElement>) => {
+    const input = event.currentTarget;
+    input.value = input.value.replace(/[^a-zA-Z\s]/g, ''); // Remove números e caracteres especiais
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
@@ -39,16 +51,22 @@ export default function Checkout({ isOpen, onClose, items }: CheckoutProps) {
                     type="text"
                     placeholder="Nome Completo"
                     className="w-full p-3 border rounded-lg"
+                    onInput={handleTextInput}
+                    required
                   />
                   <input
                     type="email"
                     placeholder="Email"
                     className="w-full p-3 border rounded-lg"
+                    required
                   />
                   <input
                     type="tel"
                     placeholder="Telefone"
                     className="w-full p-3 border rounded-lg"
+                    onInput={handleNumberInput}
+                    maxLength={11}
+                    required
                   />
                 </div>
               </div>
@@ -60,17 +78,23 @@ export default function Checkout({ isOpen, onClose, items }: CheckoutProps) {
                     type="text"
                     placeholder="CEP"
                     className="w-full p-3 border rounded-lg"
+                    onInput={handleNumberInput}
+                    maxLength={8}
+                    required
                   />
                   <input
                     type="text"
                     placeholder="Endereço"
                     className="w-full p-3 border rounded-lg"
+                    required
                   />
                   <div className="grid grid-cols-2 gap-4">
                     <input
                       type="text"
                       placeholder="Número"
                       className="p-3 border rounded-lg"
+                      onInput={handleNumberInput}
+                      required
                     />
                     <input
                       type="text"
@@ -82,11 +106,15 @@ export default function Checkout({ isOpen, onClose, items }: CheckoutProps) {
                     type="text"
                     placeholder="Cidade"
                     className="w-full p-3 border rounded-lg"
+                    onInput={handleTextInput}
+                    required
                   />
                   <input
                     type="text"
                     placeholder="Estado"
                     className="w-full p-3 border rounded-lg"
+                    onInput={handleTextInput}
+                    required
                   />
                 </div>
               </div>
@@ -98,23 +126,33 @@ export default function Checkout({ isOpen, onClose, items }: CheckoutProps) {
                     type="text"
                     placeholder="Número do Cartão"
                     className="w-full p-3 border rounded-lg"
+                    onInput={handleNumberInput}
+                    maxLength={16}
+                    required
                   />
                   <div className="grid grid-cols-2 gap-4">
                     <input
                       type="text"
                       placeholder="MM/AA"
                       className="p-3 border rounded-lg"
+                      pattern="(0[1-9]|1[0-2])\/\d{2}"
+                      required
                     />
                     <input
                       type="text"
                       placeholder="CVV"
                       className="p-3 border rounded-lg"
+                      onInput={handleNumberInput}
+                      maxLength={4}
+                      required
                     />
                   </div>
                   <input
                     type="text"
                     placeholder="Nome no Cartão"
                     className="w-full p-3 border rounded-lg"
+                    onInput={handleTextInput}
+                    required
                   />
                 </div>
               </div>

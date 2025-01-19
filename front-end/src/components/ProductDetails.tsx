@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Product, Size } from '../types';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, ShoppingCart } from 'lucide-react';
 
 interface ProductDetailsProps {
   product: Product;
@@ -10,11 +10,19 @@ interface ProductDetailsProps {
 
 export default function ProductDetails({ product, onAddToCart, onClose }: ProductDetailsProps) {
   const sizes: Size[] = ['P', 'M', 'G', 'GG'];
-  const additionalImages = [
-    `https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&q=80&w=400`,
-    `https://images.unsplash.com/photo-1618354691438-25bc04584c23?auto=format&fit=crop&q=80&w=400`,
-    `https://images.unsplash.com/photo-1618354691229-88d47f285158?auto=format&fit=crop&q=80&w=400`,
-  ];
+  const [selectedSize, setSelectedSize] = useState<Size | null>(null);
+  const [animatingSize, setAnimatingSize] = useState<Size | null>(null);
+
+  const handleSizeClick = (size: Size) => {
+    setSelectedSize((prevSize) => (prevSize === size ? null : size));
+  };
+
+  const handleAddToCart = () => {
+    if (selectedSize) {
+      onAddToCart(product, selectedSize);
+      setSelectedSize(null); // Reseta o tamanho selecionado
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
@@ -36,17 +44,6 @@ export default function ProductDetails({ product, onAddToCart, onClose }: Produc
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="grid grid-cols-3 gap-4">
-              {additionalImages.map((img, index) => (
-                <div key={index} className="aspect-square overflow-hidden rounded-lg">
-                  <img
-                    src={img}
-                    alt={`${product.name} - Imagem ${index + 2}`}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform cursor-pointer"
-                  />
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="space-y-8">
@@ -57,29 +54,35 @@ export default function ProductDetails({ product, onAddToCart, onClose }: Produc
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold mb-4">Detalhes do Produto</h2>
-              <ul className="space-y-2 text-gray-600">
-                <li>• Cor: {product.color}</li>
-                <li>• Logo: {product.logoColor}</li>
-                <li>• Material: 100% Algodão</li>
-                <li>• Lavagem: Máquina, água fria</li>
-                <li>• Fabricação: Nacional</li>
-              </ul>
-            </div>
-
-            <div>
               <h2 className="text-lg font-semibold mb-4">Escolha o Tamanho</h2>
               <div className="flex gap-4">
                 {sizes.map((size) => (
                   <button
                     key={size}
-                    onClick={() => onAddToCart(product, size)}
-                    className="w-12 h-12 border-2 border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
+                    data-size={size}
+                    onClick={() => handleSizeClick(size)}
+                    disabled={animatingSize !== null}
+                    className={`w-12 h-12 border-2 rounded-full flex items-center justify-center transition-all transform ${
+                      selectedSize === size
+                        ? 'bg-black text-white scale-105'
+                        : 'hover:bg-black hover:text-white scale-100 border-black'
+                    }`}
                   >
                     {size}
                   </button>
                 ))}
               </div>
+            </div>
+
+            <div>
+              <button
+                onClick={handleAddToCart}
+                disabled={!selectedSize || animatingSize !== null}
+                className={`mt-4 px-6 py-3 text-black rounded-full flex items-center gap-2 border border-black/30 transition-all transform hover:bg-black hover:text-white hover:border-white/60`}
+              >
+                <ShoppingCart className="w-5 h-5" />
+                <span>Adicionar ao Carrinho</span>
+              </button>
             </div>
 
             <div className="pt-6 border-t">

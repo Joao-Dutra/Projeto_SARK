@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { products } from './data/products';
 import { CartItem, Product, Size } from './types';
+import TopBar from './components/TopBar';
 import Header from './components/Header';
 import Cart from './components/Cart';
 import Banner from './components/Banner';
@@ -16,11 +17,11 @@ function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const addToCart = (product: Product, size: Size) => {
-    setCartItems(prev => {
-      const existingItem = prev.find(item => item.id === product.id && item.size === size);
-      
+    setCartItems((prev) => {
+      const existingItem = prev.find((item) => item.id === product.id && item.size === size);
+
       if (existingItem) {
-        return prev.map(item =>
+        return prev.map((item) =>
           item.id === product.id && item.size === size
             ? { ...item, quantity: item.quantity + 1 }
             : item
@@ -33,18 +34,20 @@ function App() {
   };
 
   const updateQuantity = (productId: string, size: Size, quantity: number) => {
-    setCartItems(prev =>
-      prev.map(item =>
-        item.id === productId && item.size === size
-          ? { ...item, quantity }
-          : item
-      ).filter(item => item.quantity > 0)
+    setCartItems((prev) =>
+      prev
+        .map((item) =>
+          item.id === productId && item.size === size
+            ? { ...item, quantity }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
     );
   };
 
   const removeItem = (productId: string, size: Size) => {
-    setCartItems(prev =>
-      prev.filter(item => !(item.id === productId && item.size === size))
+    setCartItems((prev) =>
+      prev.filter((item) => !(item.id === productId && item.size === size))
     );
   };
 
@@ -54,12 +57,17 @@ function App() {
   };
 
   return (
+    
     <div className="min-h-screen">
-      <Header
-        onCartClick={() => setIsCartOpen(true)}
-        cartItems={cartItems}
-      />
-      
+      {/* TopBar sempre fixa no topo */}
+      <TopBar />
+
+      {/* Header logo abaixo da TopBar */}
+      <div className="relative z-40">
+        <Header onCartClick={() => setIsCartOpen(true)} cartItems={cartItems} />
+      </div>
+
+      {/* Modais de carrinho e checkout */}
       <Cart
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
@@ -83,9 +91,11 @@ function App() {
         />
       )}
 
-      <main className="pt-16 snap-y snap-mandatory h-screen overflow-y-auto">
+      {/* Conteúdo principal */}
+      <main className="pt-[144px] snap-y snap-mandatory h-screen overflow-y-auto">
+        {/* Padding ajustado para evitar sobreposição do Header */}
         <Banner />
-        {products.map(product => (
+        {products.map((product) => (
           <ProductPanel
             key={product.id}
             product={product}
