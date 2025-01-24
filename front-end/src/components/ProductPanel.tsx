@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Product, Size } from '../types';
 import { Eye, ShoppingCart } from 'lucide-react';
 
@@ -11,17 +11,6 @@ interface ProductPanelProps {
 export default function ProductPanel({ product, onAddToCart, onViewDetails }: ProductPanelProps) {
   const sizes: Size[] = ['P', 'M', 'G', 'GG'];
   const [selectedSize, setSelectedSize] = useState<Size | null>(null);
-  const [animatingSize, setAnimatingSize] = useState<Size | null>(null);
-  const [isBouncing, setIsBouncing] = useState(false);
-
-  // Ativa o "pulo" do botão quando um tamanho é selecionado
-  useEffect(() => {
-    if (selectedSize) {
-      setIsBouncing(true);
-    } else {
-      setIsBouncing(false);
-    }
-  }, [selectedSize]);
 
   const handleSizeClick = (size: Size) => {
     setSelectedSize((prevSize) => (prevSize === size ? null : size));
@@ -29,44 +18,13 @@ export default function ProductPanel({ product, onAddToCart, onViewDetails }: Pr
 
   const handleAddToCart = () => {
     if (selectedSize) {
-      setAnimatingSize(selectedSize);
-      const cartIcon = document.querySelector('.cart-icon');
-      const button = document.querySelector(`button[data-size="${selectedSize}"]`);
-
-      if (cartIcon && button) {
-        const clone = button.cloneNode(true) as HTMLElement;
-        const rect = button.getBoundingClientRect();
-        const cartRect = cartIcon.getBoundingClientRect();
-
-        clone.style.position = 'fixed';
-        clone.style.left = `${rect.left}px`;
-        clone.style.top = `${rect.top}px`;
-        clone.style.margin = '0';
-        clone.style.zIndex = '100';
-        clone.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        clone.style.pointerEvents = 'none';
-
-        document.body.appendChild(clone);
-
-        requestAnimationFrame(() => {
-          clone.style.transform = 'scale(0.5)';
-          clone.style.left = `${cartRect.left + cartRect.width / 2 - rect.width / 4}px`;
-          clone.style.top = `${cartRect.top + cartRect.height / 2 - rect.height / 4}px`;
-          clone.style.opacity = '0';
-        });
-
-        setTimeout(() => {
-          document.body.removeChild(clone);
-          onAddToCart(product, selectedSize);
-          setAnimatingSize(null);
-          setSelectedSize(null); // Remove a marcação do tamanho
-        }, 500);
-      }
+      onAddToCart(product, selectedSize);
+      setSelectedSize(null); // Remove a marcação do tamanho
     }
   };
 
   return (
-    <div className="relative h-screen snap-start">
+    <div className="relative h-screen snap-start overflow-y-auto">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${product.image})` }}
@@ -85,13 +43,11 @@ export default function ProductPanel({ product, onAddToCart, onViewDetails }: Pr
               {sizes.map((size) => (
                 <button
                   key={size}
-                  data-size={size}
                   onClick={() => handleSizeClick(size)}
-                  disabled={animatingSize !== null}
-                  className={`w-12 h-12 border-2 rounded-full flex items-center justify-center transition-all transform ${
+                  className={`w-12 h-12 border-2 rounded-full flex items-center justify-center transition-all ${
                     selectedSize === size
-                      ? 'bg-white text-black scale-105'
-                      : 'hover:bg-white hover:text-black scale-100 border-white'
+                      ? 'bg-white text-black'
+                      : 'hover:bg-white hover:text-black border-white'
                   }`}
                 >
                   {size}
@@ -100,8 +56,8 @@ export default function ProductPanel({ product, onAddToCart, onViewDetails }: Pr
             </div>
             <button
               onClick={handleAddToCart}
-              disabled={!selectedSize || animatingSize !== null}
-              className={`mt-4 px-6 py-3 text-white rounded-full flex items-center gap-2 border border-white/30 transition-all transform hover:bg-white hover:text-black hover:border-white/60 $`}
+              disabled={!selectedSize}
+              className="mt-4 px-6 py-3 text-white rounded-full flex items-center gap-2 border border-white/30 transition-all hover:bg-white hover:text-black hover:border-white/60"
             >
               <ShoppingCart className="w-5 h-5" />
               <span>Adicionar ao Carrinho</span>

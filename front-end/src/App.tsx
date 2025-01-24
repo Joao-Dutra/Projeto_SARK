@@ -57,12 +57,11 @@ function App() {
   };
 
   return (
-    
-    <div className="min-h-screen">
-      {/* TopBar sempre fixa no topo */}
+    <div className="flex flex-col min-h-screen">
+      {/* TopBar fixa no topo */}
       <TopBar />
 
-      {/* Header logo abaixo da TopBar */}
+      {/* Header abaixo da TopBar */}
       <div className="relative z-40">
         <Header onCartClick={() => setIsCartOpen(true)} cartItems={cartItems} />
       </div>
@@ -92,19 +91,21 @@ function App() {
       )}
 
       {/* Conteúdo principal */}
-      <main className="pt-[144px] snap-y snap-mandatory h-screen overflow-y-auto">
-        {/* Padding ajustado para evitar sobreposição do Header */}
-        <Banner />
-        {products.map((product) => (
-          <ProductPanel
-            key={product.id}
-            product={product}
-            onAddToCart={addToCart}
-            onViewDetails={setSelectedProduct}
-          />
-        ))}
-      </main>
+      <main className="flex-grow snap-y snap-mandatory overflow-y-auto">
+  <Banner />
+  {products.map((product) => (
+    <ProductPanel
+      key={product.id}
+      product={product}
+      onAddToCart={addToCart}
+      onViewDetails={setSelectedProduct}
+    />
+  ))}
+</main>
 
+
+
+      {/* Footer */}
       <Footer />
     </div>
   );
