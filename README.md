@@ -6,7 +6,7 @@ A **Sark** é uma loja de roupas online desenvolvida para oferecer uma experiên
 
 O projeto foi desenvolvido utilizando **React** no front-end e **Java Spring Boot** no back-end, garantindo uma aplicação robusta, escalável e de alto desempenho.
 
-## 🎯 Funcionalidades
+## Funcionalidades
 
  **Cadastro e Login de Usuários**  
  **Navegação e Busca de Produtos**  
@@ -15,7 +15,7 @@ O projeto foi desenvolvido utilizando **React** no front-end e **Java Spring Boo
  **Gerenciamento de Pedidos**  
  **Painel Administrativo (para gerenciamento de produtos e pedidos)**  
 
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 ### **Front-end** (React)
 - React.js
