@@ -35,7 +35,7 @@ O projeto foi desenvolvido utilizando **React** no front-end e **Java Spring Boo
 ![image](https://github.com/user-attachments/assets/56400a04-e466-45a7-9f2c-9c39c6ccd9a6)
 *Tela inicial*
 
-![image](https://github.com/user-attachments/assets/0374c240-c19d-48ec-9135-7801754a3136)
+![image](https://github.com/user-attachments/assets/1414a323-5414-4911-aa9e-cf306ba2ae54)
 *Produto*
 
 ![image](https://github.com/user-attachments/assets/ae510213-d767-4cdb-9679-d603a1b34af1)
