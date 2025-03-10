@@ -29,3 +29,17 @@ O projeto foi desenvolvido utilizando **React** no front-end e **Java Spring Boo
 - Spring Security (para autenticação)
 - JPA/Hibernate (para manipulação do banco de dados)
 - MySQL (banco de dados relacional)
+
+### Imagens do projeto
+
+![image](https://github.com/user-attachments/assets/56400a04-e466-45a7-9f2c-9c39c6ccd9a6)
+*Tela inicial*
+
+![image](https://github.com/user-attachments/assets/0374c240-c19d-48ec-9135-7801754a3136)
+*Produto*
+
+![image](https://github.com/user-attachments/assets/ae510213-d767-4cdb-9679-d603a1b34af1)
+*Detalhes do produto*
+
+![image](https://github.com/user-attachments/assets/601cdd08-f0d6-4d67-bc9f-2de52b5748f2)
+*Compra*
