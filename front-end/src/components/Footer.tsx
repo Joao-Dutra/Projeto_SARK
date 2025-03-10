@@ -1,20 +1,19 @@
 import React from 'react';
-import { Shirt, Instagram, Facebook, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import SarkLogo from './Sark-logo.png'; // Certifique-se de que o caminho para a logo esteja correto.
 
 export default function Footer() {
   return (
     <footer className="bg-black text-white py-16">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Logo e Descrição */}
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <Shirt className="w-8 h-8" />
-              <span className="text-2xl font-bold">SARK</span>
+              <img src={SarkLogo} alt="Sark Logo" className="w-42 h-42" />
+          
             </div>
-            <p className="text-gray-400 mb-6">
-              Elegância em cada detalhe. Nossa missão é oferecer peças únicas que combinam
-              estilo, conforto e qualidade.
-            </p>
+         
             <div className="flex gap-4">
               <a href="#" className="hover:text-gray-400 transition-colors">
                 <Instagram className="w-6 h-6" />
@@ -28,6 +27,7 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Links Rápidos */}
           <div>
             <h3 className="text-lg font-semibold mb-6">Links Rápidos</h3>
             <ul className="space-y-4">
@@ -54,6 +54,7 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Contato */}
           <div>
             <h3 className="text-lg font-semibold mb-6">Contato</h3>
             <ul className="space-y-4">
@@ -72,6 +73,7 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Newsletter */}
           <div>
             <h3 className="text-lg font-semibold mb-6">Newsletter</h3>
             <p className="text-gray-400 mb-4">
@@ -93,6 +95,7 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Copyright */}
         <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
           <p>&copy; 2024 SARK. Todos os direitos reservados.</p>
         </div>
