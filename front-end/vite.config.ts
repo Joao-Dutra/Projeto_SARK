@@ -13,4 +13,5 @@ export default defineConfig({
       '/api': 'http://localhost:8080', // Redireciona as chamadas para o back-end
     },
   },
+  base: '/Projeto_Sark/'
 });
