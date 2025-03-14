@@ -12,7 +12,7 @@ export default function Header({ onCartClick, cartItems }: HeaderProps) {
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <header className="fixed top-[32px] left-0 right-0 bg-white z-40 shadow-md">
+    <header className="fixed top-[18qpx] left-0 right-0 bg-white z-40 shadow-md">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2">
           {/* Exibe a logo */}
